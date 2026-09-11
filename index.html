@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Essen Staff Locator</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">+</div>
+    <div>
+      <h1>Essen Staff Locator</h1>
+      <p>Closest site + who is on the schedule</p>
+    </div>
+    <span class="badge">DEMO schedules — not live EHR</span>
+  </header>
+  <div class="layout">
+    <aside>
+      <div class="banner">
+        Provider names and hours are sample data so you can try the workflow. Swap in the real roster with Edit roster.
+      </div>
+      <div class="search">
+        <label for="addr">Patient address</label>
+        <input id="addr" placeholder="e.g. 1200 Franklin Ave, Bronx, NY" />
+        <div class="row">
+          <div>
+            <label for="day">Day</label>
+            <select id="day"></select>
+          </div>
+          <div>
+            <label for="spec">Specialty</label>
+            <select id="spec"><option value="">Any</option></select>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="miles">Max miles</label>
+            <select id="miles">
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+            </select>
+          </div>
+          <div>
+            <label for="onlyAvail">Availability</label>
+            <select id="onlyAvail">
+              <option value="avail">On schedule that day</option>
+              <option value="all">Show all sites</option>
+            </select>
+          </div>
+        </div>
+        <button class="primary" id="go">Find closest + available</button>
+        <p class="hint">Uses straight-line miles (not traffic). Directions open in Google Maps.</p>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="ghost" id="reset">Reset map</button>
+          <button class="ghost" id="edit">Edit roster</button>
+        </div>
+      </div>
+      <div class="filters">
+        <span class="meta" id="count">sites loading</span>
+      </div>
+      <div class="list" id="list"></div>
+    </aside>
+    <div id="map"></div>
+  </div>
+  <dialog id="editor">
+    <div class="dlg">
+      <h3 style="margin:0 0 8px">Provider roster (JSON)</h3>
+      <p class="hint">Saved only in this browser.</p>
+      <textarea id="rosterJson"></textarea>
+      <div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end">
+        <button class="ghost" id="cancelEdit">Cancel</button>
+        <button class="primary" id="saveEdit" style="width:auto;padding:8px 16px;margin:0">Save in this browser</button>
+      </div>
+    </div>
+  </dialog>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="data.js"></script>
+  <script src="providers.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
